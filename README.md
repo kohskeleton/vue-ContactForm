@@ -1,4 +1,4 @@
-# sample-form
+# Sample Vue ContactForm
 
 ## Project setup
 ```
