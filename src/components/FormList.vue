@@ -35,7 +35,6 @@
 
     <v-btn
       @click="submit"
-      to="/thanks"
     >
       送信
     </v-btn>
@@ -47,18 +46,14 @@ import {mapState} from 'vuex'
 
 export default {
   name: 'FormList',
-  data() {
-    return {
-      //
-    }
-  },
+
   computed: {
     ...mapState('contact', ['name', 'kana', 'email', 'company', 'zipCode', 'address', 'tel', 'select', 'subject', 'content', 'checkbox'])
   },
 
   methods: {
     submit () {
-      console.log('送信しました');
+      this.$router.push({ path: 'thanks' })
     }
   }
 }

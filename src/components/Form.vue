@@ -48,6 +48,8 @@
       ></v-text-field>
       <v-text-field
         :value="address"
+        :rules="addressRules"
+        :counter="50"
         @input="updateAddress"
         label="住所"
       ></v-text-field>
@@ -97,7 +99,6 @@
       <v-btn
         :disabled="!valid"
         @click="submit"
-        to="/confirm"
       >
         確認
       </v-btn>
@@ -128,6 +129,9 @@ import {mapState, mapMutations} from 'vuex'
         v => v.length <= 7 || '郵便番号が正しくありません',
         v => /^[0-9]*$/.test(v) || '郵便番号は数値で入力してください'
       ],
+      addressRules: [
+        v => v.length <= 50 || '住所は50文字未満にする必要があります'
+      ],
       telRules: [
         v => /^[0-9]*$/.test(v) || '電話番号は数値で入力してください'
       ],
@@ -150,16 +154,13 @@ import {mapState, mapMutations} from 'vuex'
     computed: {
       ...mapState('contact', ['name', 'kana', 'email', 'company', 'zipCode', 'address', 'tel', 'select', 'subject', 'content', 'checkbox'])
     },
-
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
-          console.log('OKです');
+          this.$router.push({ path: 'confirm' })
         }
       },
-
       ...mapMutations('contact',['updateName', 'updateKana', 'updateCompany', 'updateEmail', 'updateZipCode', 'updateAddress', 'updateTel', 'updateSelect', 'updateSubject', 'updateContent', 'updateCheckbox'])
-
     }
   }
 </script>

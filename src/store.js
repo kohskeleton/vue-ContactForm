@@ -19,7 +19,7 @@ export default new Vuex.Store({
         select: null,
         subject: '',
         content: '',
-        checkbox: false
+        checkbox: 'はい'
       },
       mutations: {
         updateName(state, name) {
@@ -53,7 +53,7 @@ export default new Vuex.Store({
           state.content = content
         },
         updateCheckbox(state, checkbox) {
-          state.checkbox = !checkbox
+          state.checkbox = checkbox
         }
       }
     }
