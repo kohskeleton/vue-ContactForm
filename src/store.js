@@ -25,28 +25,35 @@ export default new Vuex.Store({
         updateName(state, name) {
           state.name = name
         },
+        updateKana(state, kana) {
+          state.kana = kana
+        },
+        updateCompany(state, company) {
+          state.company = company
+        },
         updateEmail(state, email) {
           state.email = email
+        },
+        updateZipCode(state, zipCode) {
+          state.zipCode = zipCode
+        },
+        updateAddress(state, address) {
+          state.address = address
+        },
+        updateTel(state, tel) {
+          state.tel = tel
         },
         updateSelect(state, select) {
           state.select = select
         },
+        updateSubject(state, subject) {
+          state.subject = subject
+        },
+        updateContent(state, content) {
+          state.content = content
+        },
         updateCheckbox(state, checkbox) {
           state.checkbox = !checkbox
-        }
-      },
-      actions: {
-        updateName({commit}, value) {
-          commit('updateName', value)
-        },
-        updateEmail({commit}, value) {
-          commit('updateEmail', value)
-        },
-        updateSelect({commit}, value) {
-          commit('updateSelect', value)
-        },
-        updateCheckbox({commit}, value) {
-          commit('updateCheckbox', value)
         }
       }
     }

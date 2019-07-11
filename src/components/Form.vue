@@ -6,18 +6,19 @@
         :value="name"
         :rules="nameRules"
         :counter="10"
+        @input="updateName"
         label="名前"
         required
-        @input="updateName"
       >
         <template v-slot:label>
           名前 <small>(必須)</small>
         </template>
       </v-text-field>
-      <!-- <v-text-field
-        v-model="kana"
+      <v-text-field
+        :value="kana"
         :rules="kanaRules"
         label="ふりがな"
+        @input="updateKana"
         required
       >
         <template v-slot:label>
@@ -25,68 +26,72 @@
         </template>
       </v-text-field>
       <v-text-field
-        v-model="company"
-        :rules="companyRules"
+        :value="company"
+        @input="updateCompany"
         label="社名"
-      ></v-text-field> -->
+      ></v-text-field>
       <v-text-field
         :value="email"
         :rules="emailRules"
-        required
         @input="updateEmail"
+        required
       >
         <template v-slot:label>
           メールアドレス <small>(必須)</small>
         </template>
       </v-text-field>
-      <!-- <v-text-field
-        v-model="zipCode"
+      <v-text-field
+        :value="zipCode"
         :rules="zipCodeRules"
+        @input="updateZipCode"
         label="郵便番号"
       ></v-text-field>
       <v-text-field
-        v-model="address"
-        :rules="addressRules"
+        :value="address"
+        @input="updateAddress"
         label="住所"
-      ></v-text-field> -->
-      <!-- <v-text-field
-        v-model="tel"
+      ></v-text-field>
+      <v-text-field
+        :value="tel"
         :rules="telRules"
+        @input="updateTel"
         label="電話番号"
-      ></v-text-field> -->
+      ></v-text-field>
       <v-select
         :value="select"
         :items="items"
         label="どの製品について"
         @input="updateSelect"
       ></v-select>
-      <!-- <v-text-field
-        v-model="subject"
+      <v-text-field
+        :value="subject"
         :rules="subjectRules"
+        @input="updateSubject"
         label="件名"
         required
       >
         <template v-slot:label>
           件名 <small>(必須)</small>
         </template>
-      </v-text-field> -->
-      <!-- <v-textarea
-        v-model="content"
+      </v-text-field>
+      <v-textarea
+        :value="content"
         :rules="contentRules"
+        @input="updateContent"
         label="お問い合わせ内容"
         required
         >
           <template v-slot:label>
             お問合せ内容 <small>(必須)</small>
           </template>
-        </v-textarea> -->
+        </v-textarea>
 
       <v-checkbox
         :value="checkbox"
-        :rules="[v => !!v || '続行するには同意する必要があります。']"
+        :rules="checkboxRules"
+        @input="updateCheckbox"
         label="個人情報の保持の同意（必須）"
         required
-        @input="updateCheckbox"
       ></v-checkbox>
 
       <v-btn
@@ -103,7 +108,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapState, mapMutations} from 'vuex'
 
   export default {
     data: () => ({
@@ -119,23 +124,31 @@ import {mapState} from 'vuex'
         v => !!v || 'メールアドレスを入力してください',
         v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'メールアドレスが有効ではありません'
       ],
-      // select: null,
+      zipCodeRules: [
+        v => v.length <= 7 || '郵便番号が正しくありません',
+        v => /^[0-9]*$/.test(v) || '郵便番号は数値で入力してください'
+      ],
+      telRules: [
+        v => /^[0-9]*$/.test(v) || '電話番号は数値で入力してください'
+      ],
       items: [
         'Aサービスについて',
         'Bサービスについて',
         'Cサービスについて',
         'その他'
       ],
-      // checkbox: false
       subjectRules: [
         v => !!v || '件名を入力してください'
       ],
       contentRules: [
         v => !!v || 'お問い合わせ内容を入力してください'
+      ],
+      checkboxRules: [
+        v => !!v || '続行するには同意する必要があります'
       ]
     }),
     computed: {
-      ...mapState('contact', ['name', 'email', 'select', 'checkbox'])
+      ...mapState('contact', ['name', 'kana', 'email', 'company', 'zipCode', 'address', 'tel', 'select', 'subject', 'content', 'checkbox'])
     },
 
     methods: {
@@ -144,18 +157,9 @@ import {mapState} from 'vuex'
           console.log('OKです');
         }
       },
-      updateName(e) {
-        this.$store.dispatch('contact/updateName', e.target.value)
-      },
-      updateEmail(e) {
-        this.$store.dispatch('contact/updateEmail', e.target.value)
-      },
-      updateSelect(e) {
-        this.$store.dispatch('contact/updateSelect', e.target.value)
-      },
-      updateCheckbox(e) {
-        this.$store.dispatch('contact/updateCheckbox', e.target.value)
-      }
+
+      ...mapMutations('contact',['updateName', 'updateKana', 'updateCompany', 'updateEmail', 'updateZipCode', 'updateAddress', 'updateTel', 'updateSelect', 'updateSubject', 'updateContent', 'updateCheckbox'])
+
     }
   }
 </script>
