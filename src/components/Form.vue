@@ -3,17 +3,18 @@
 
     <v-form ref="form" v-model="valid">
       <v-text-field
-        v-model="name"
+        :value="name"
         :rules="nameRules"
         :counter="10"
         label="名前"
         required
+        @input="updateName"
       >
         <template v-slot:label>
           名前 <small>(必須)</small>
         </template>
       </v-text-field>
-      <v-text-field
+      <!-- <v-text-field
         v-model="kana"
         :rules="kanaRules"
         label="ふりがな"
@@ -27,17 +28,18 @@
         v-model="company"
         :rules="companyRules"
         label="社名"
-      ></v-text-field>
+      ></v-text-field> -->
       <v-text-field
-        v-model="email"
+        :value="email"
         :rules="emailRules"
         required
+        @input="updateEmail"
       >
         <template v-slot:label>
           メールアドレス <small>(必須)</small>
         </template>
       </v-text-field>
-      <v-text-field
+      <!-- <v-text-field
         v-model="zipCode"
         :rules="zipCodeRules"
         label="郵便番号"
@@ -46,18 +48,19 @@
         v-model="address"
         :rules="addressRules"
         label="住所"
-      ></v-text-field>
-      <v-text-field
+      ></v-text-field> -->
+      <!-- <v-text-field
         v-model="tel"
         :rules="telRules"
         label="電話番号"
-      ></v-text-field>
+      ></v-text-field> -->
       <v-select
-        v-model="select"
+        :value="select"
         :items="items"
         label="どの製品について"
+        @input="updateSelect"
       ></v-select>
-      <v-text-field
+      <!-- <v-text-field
         v-model="subject"
         :rules="subjectRules"
         label="件名"
@@ -66,8 +69,8 @@
         <template v-slot:label>
           件名 <small>(必須)</small>
         </template>
-      </v-text-field>
-      <v-textarea
+      </v-text-field> -->
+      <!-- <v-textarea
         v-model="content"
         :rules="contentRules"
         label="お問い合わせ内容"
@@ -76,13 +79,14 @@
           <template v-slot:label>
             お問合せ内容 <small>(必須)</small>
           </template>
-        </v-textarea>
+        </v-textarea> -->
 
       <v-checkbox
-        v-model="checkbox"
+        :value="checkbox"
         :rules="[v => !!v || '続行するには同意する必要があります。']"
         label="個人情報の保持の同意（必須）"
         required
+        @input="updateCheckbox"
       ></v-checkbox>
 
       <v-btn
@@ -99,7 +103,8 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
+import {mapState} from 'vuex'
+
   export default {
     data: () => ({
       valid: false,
@@ -130,38 +135,7 @@
       ]
     }),
     computed: {
-      name: {
-        get() {
-          return this.$store.state.name
-        },
-        set(value) {
-          this.$store.commit('updateName', value)
-        }
-      },
-      email: {
-        get() {
-          return this.$store.state.email
-        },
-        set(value) {
-          this.$store.commit('updateEmail', value)
-        }
-      },
-      select: {
-        get() {
-          return this.$store.state.select
-        },
-        set(value) {
-          this.$store.commit('updateSelect', value)
-        }
-      },
-      checkbox: {
-        get() {
-          return this.$store.state.checkbox
-        },
-        set(value) {
-          this.$store.commit('updateCheckbox', value)
-        }
-      }
+      ...mapState('contact', ['name', 'email', 'select', 'checkbox'])
     },
 
     methods: {
@@ -171,16 +145,16 @@
         }
       },
       updateName(e) {
-        this.$store.commit('updateName', e.target.value)
+        this.$store.dispatch('contact/updateName', e.target.value)
       },
       updateEmail(e) {
-        this.$store.commit('updateEmail', e.target.value)
+        this.$store.dispatch('contact/updateEmail', e.target.value)
       },
       updateSelect(e) {
-        this.$store.commit('updateSelect', e.target.value)
+        this.$store.dispatch('contact/updateSelect', e.target.value)
       },
       updateCheckbox(e) {
-        this.$store.commit('updateCheckbox', e.target.value)
+        this.$store.dispatch('contact/updateCheckbox', e.target.value)
       }
     }
   }

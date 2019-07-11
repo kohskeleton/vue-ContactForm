@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 export default {
   name: 'FormList',
   data() {
@@ -30,26 +32,7 @@ export default {
     }
   },
   computed: {
-    name: {
-      get() {
-        return this.$store.state.name
-      }
-    },
-    email: {
-      get() {
-        return this.$store.state.email
-      }
-    },
-    select: {
-      get() {
-        return this.$store.state.select
-      }
-    },
-    checkbox: {
-      get() {
-        return this.$store.state.checkbox
-      }
-    }
+    ...mapState('contact', ['name', 'email', 'select', 'checkbox'])
   },
 
   methods: {
