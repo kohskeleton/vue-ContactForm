@@ -1,5 +1,7 @@
 <template>
   <v-container text-xs-center pt-5 pb-5>
+    <h1>Contact Us</h1>
+    <p>お問い合わせ内容を入力してください</p>
 
     <v-form ref="form" v-model="valid">
       <v-text-field
@@ -90,6 +92,8 @@
 
       <v-checkbox
         :value="checkbox"
+        false-value="同意しない"
+        true-value="同意します"
         :rules="checkboxRules"
         @input="updateCheckbox"
         label="個人情報の保持の同意（必須）"
@@ -114,6 +118,7 @@ import {mapState, mapMutations} from 'vuex'
   export default {
     data: () => ({
       valid: false,
+      checkBoxValue: false,
       nameRules: [
         v => !!v || '名前を入力してください',
         v => v.length <= 10 || '名前は10文字未満にする必要があります'
@@ -152,15 +157,16 @@ import {mapState, mapMutations} from 'vuex'
       ]
     }),
     computed: {
-      ...mapState('contact', ['name', 'kana', 'email', 'company', 'zipCode', 'address', 'tel', 'select', 'subject', 'content', 'checkbox'])
+      ...mapState('contact', ['name', 'kana', 'email', 'company', 'zipCode', 'address', 'tel', 'select', 'subject', 'content', 'checkbox','register'])
     },
     methods: {
       submit () {
         if (this.$refs.form.validate()) {
+          this.updateRegister()
           this.$router.push({ path: 'confirm' })
         }
       },
-      ...mapMutations('contact',['updateName', 'updateKana', 'updateCompany', 'updateEmail', 'updateZipCode', 'updateAddress', 'updateTel', 'updateSelect', 'updateSubject', 'updateContent', 'updateCheckbox'])
+      ...mapMutations('contact',['updateName', 'updateKana', 'updateCompany', 'updateEmail', 'updateZipCode', 'updateAddress', 'updateTel', 'updateSelect', 'updateSubject', 'updateContent','updateCheckbox',  'updateRegister'])
     }
   }
 </script>
