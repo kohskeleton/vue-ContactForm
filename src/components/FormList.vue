@@ -2,7 +2,7 @@
   <v-container text-xs-center pt-5 pb-5>
     <h1>Confirmation</h1>
     <p class="mb-4">お問い合わせ内容の確認</p>
-
+    <v-form @submit.prevent="submit" netlify>
     <label>【名前】</label>
     <p>{{ name }}</p>
 
@@ -39,6 +39,7 @@
     <v-layout justify-center mt-4>
       <v-flex sm6>
         <v-btn
+          type="submit"
           round
           block
           color="primary"
@@ -48,6 +49,7 @@
         </v-btn>
       </v-flex>
     </v-layout>
+    </v-form>
   </v-container>
 </template>
 
