@@ -100,12 +100,19 @@
         required
       ></v-checkbox>
 
-      <v-btn
-        :disabled="!valid"
-        @click="submit"
-      >
-        確認
-      </v-btn>
+      <v-layout justify-center mt-4>
+        <v-flex sm6>
+          <v-btn
+            round
+            block
+            color="primary"
+            :disabled="!valid"
+            @click="submit"
+          >
+            確認
+          </v-btn>
+        </v-flex>
+      </v-layout>
 
     </v-form>
 

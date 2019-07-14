@@ -16,10 +16,10 @@ export default new Vuex.Store({
         zipCode: '',
         address: '',
         tel: '',
-        select: null,
+        select: '',
         subject: '',
         content: '',
-        checkbox: false,
+        checkbox: '同意する',
         register: false
       },
       mutations: {

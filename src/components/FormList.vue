@@ -36,11 +36,18 @@
     <label>【個人情報の同意】</label>
     <p>{{ checkbox }}</p>
 
-    <v-btn
-      @click="submit"
-    >
-      送信
-    </v-btn>
+    <v-layout justify-center mt-4>
+      <v-flex sm6>
+        <v-btn
+          round
+          block
+          color="primary"
+          @click="submit"
+        >
+          送信
+        </v-btn>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -57,6 +64,20 @@ export default {
   methods: {
     submit () {
       this.$router.push({ path: 'thanks' })
+      // 入力内容をコンソールに出力
+      console.log(`
+      【名前】：` + this.name + `
+      【ふりがな】：` + this.kana + `
+      【社名】：` + this.company + `
+      【メールアドレス】：` + this.email + `
+      【郵便番号】：` + this.zipCode + `
+      【住所】：` + this.address + `
+      【電話番号】：` + this.tel + `
+      【どの製品について】：` + this.select + `
+      【件名】：` + this.subject + `
+      【お問合せ内容】：` + this.content + `
+      【個人情報の同意】：` + this.checkbox
+      )
     }
   }
 }
