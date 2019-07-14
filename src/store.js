@@ -57,7 +57,7 @@ export default new Vuex.Store({
           state.checkbox = checkbox
         },
         updateRegister(state, register) {
-          state.register = register
+          state.register = !register
         }
       }
     }
