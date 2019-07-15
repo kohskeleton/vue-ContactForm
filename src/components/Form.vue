@@ -3,7 +3,7 @@
     <h1>Contact Us</h1>
     <p>お問い合わせ内容を入力してください</p>
 
-    <v-form ref="form" v-model="valid" method="POST" data-netlify="true">
+    <v-form ref="form" v-model="valid" netlify>
       <v-text-field
         :value="name"
         :rules="nameRules"

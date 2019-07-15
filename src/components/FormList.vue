@@ -79,6 +79,11 @@ export default {
       【お問合せ内容】：` + this.content + `
       【個人情報の同意】：` + this.checkbox
       )
+
+      var xhr = new XMLHttpRequest();
+
+      xhr.open('POST', 'https://vue-contactform.netlify.com/', true);
+      xhr.send(null);
     }
   }
 }
