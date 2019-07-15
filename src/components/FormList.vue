@@ -58,27 +58,47 @@ import {mapState} from 'vuex'
 export default {
   name: 'FormList',
 
+  data: () => ({
+    formData : ''
+  }),
+
   computed: {
     ...mapState('contact', ['name', 'kana', 'email', 'company', 'zipCode', 'address', 'tel', 'select', 'subject', 'content', 'checkbox'])
   },
 
+  // mounted: {
+  //   formData = `
+  //     【名前】：` + this.name + `
+  //     【ふりがな】：` + this.kana + `
+  //     【社名】：` + this.company + `
+  //     【メールアドレス】：` + this.email + `
+  //     【郵便番号】：` + this.zipCode + `
+  //     【住所】：` + this.address + `
+  //     【電話番号】：` + this.tel + `
+  //     【どの製品について】：` + this.select + `
+  //     【件名】：` + this.subject + `
+  //     【お問合せ内容】：` + this.content + `
+  //     【個人情報の同意】：` + this.checkbox
+  // },
+
   methods: {
     submit () {
       this.$router.push({ path: 'thanks' })
+
+      this.formData = this.name
+
       // 入力内容をコンソールに出力
-      console.log(`
-      【名前】：` + this.name + `
-      【ふりがな】：` + this.kana + `
-      【社名】：` + this.company + `
-      【メールアドレス】：` + this.email + `
-      【郵便番号】：` + this.zipCode + `
-      【住所】：` + this.address + `
-      【電話番号】：` + this.tel + `
-      【どの製品について】：` + this.select + `
-      【件名】：` + this.subject + `
-      【お問合せ内容】：` + this.content + `
-      【個人情報の同意】：` + this.checkbox
-      )
+      console.log(this.formData)
+      // netlifyにリクエスト送信
+      this.$axios.post('https://vue-contactform.netlify.com/',this.formData)
+        .then((response) => {
+          //成功時
+          console.log(response.data.status);
+        })
+        .catch(() => {
+          //失敗時
+          console.log('失敗しました')
+        })
     }
   }
 }
